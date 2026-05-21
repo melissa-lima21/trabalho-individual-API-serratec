@@ -2,8 +2,12 @@ package org.serratec.ongdeanimais.domain;
 
 import java.time.LocalDate;
 
+import org.serratec.ongdeanimais.enums.StatusInteresse;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,8 +25,9 @@ public class InteresseAdocao {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
-	private String status;
+	private StatusInteresse status;
 
 	@NotNull(message = "A data de interesse é obrigatória.")
 	@PastOrPresent(message = "A data de interesse não pode ser uma data futura.")
@@ -41,7 +46,7 @@ public class InteresseAdocao {
 		super();
 	}
 
-	public InteresseAdocao(Long id, String status,
+	public InteresseAdocao(Long id, StatusInteresse status,
 			@NotNull(message = "A data de interesse é obrigatória.") @PastOrPresent(message = "A data de interesse não pode ser uma data futura.") LocalDate dataInteresse,
 			Pessoa interessado, Animal animal) {
 		super();
@@ -60,11 +65,11 @@ public class InteresseAdocao {
 		this.id = id;
 	}
 
-	public String getStatus() {
+	public StatusInteresse getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(StatusInteresse status) {
 		this.status = status;
 	}
 

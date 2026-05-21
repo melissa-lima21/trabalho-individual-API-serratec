@@ -2,10 +2,14 @@ package org.serratec.ongdeanimais.domain;
 
 import java.util.List;
 
+import org.serratec.ongdeanimais.enums.PerfilAnimal;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -15,6 +19,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -40,6 +45,10 @@ public class Animal {
 	@Column(length = 1)
 	private String sexo;
 	
+	@NotNull(message = "O perfil do animal é obrigatório.")
+	@Enumerated(EnumType.STRING)
+	private PerfilAnimal perfil;
+	
 	private Integer idade;
 	
 	@ManyToOne
@@ -57,14 +66,16 @@ public class Animal {
 		super();
 	}
 
-	public Animal(Long id, String nome, String especie, Integer idade, String sexo, 
+	public Animal(Long id, String nome, String especie, Integer idade, String sexo, PerfilAnimal perfil,
 			Pessoa dono, List<Caracteristica> caracteristicas) {
+
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.especie = especie;
-		this.idade = idade;
 		this.sexo = sexo;
+		this.perfil = perfil;
+		this.idade = idade;
 		this.dono = dono;
 		this.caracteristicas = caracteristicas;
 	}
@@ -107,6 +118,15 @@ public class Animal {
 
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
+	}
+	
+	public PerfilAnimal getPerfil() {
+		return perfil;
+	}
+	
+	public void setPerfil(PerfilAnimal perfil) {
+		this.perfil = perfil;
+		
 	}
 
 	public Pessoa getDono() {
