@@ -2,6 +2,7 @@ package org.serratec.ongdeanimais.domain;
 
 import java.util.List;
 
+import org.serratec.ongdeanimais.enums.EspecieAnimal;
 import org.serratec.ongdeanimais.enums.PerfilAnimal;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -20,6 +21,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -35,10 +37,9 @@ public class Animal {
 	@Column(nullable = false, length = 20)
 	private String nome;
 	
-	@NotBlank(message = "A espécie é obrigatória.")
-	@Size(max = 20)
-	@Column(nullable = false, length = 20)
-	private String especie;
+	@NotNull(message = "A espécie é obrigatória.")
+	@Enumerated(EnumType.STRING)
+	private EspecieAnimal especie;
 	
 	@NotBlank(message = "Digite [M] para 'macho' ou [F] para 'fêmea'.")
 	@Size(max = 1)
@@ -49,6 +50,7 @@ public class Animal {
 	@Enumerated(EnumType.STRING)
 	private PerfilAnimal perfil;
 	
+	@PositiveOrZero(message = "A idade do animal não pode ser um número negativo.")
 	private Integer idade;
 	
 	@ManyToOne
@@ -66,7 +68,7 @@ public class Animal {
 		super();
 	}
 
-	public Animal(Long id, String nome, String especie, Integer idade, String sexo, PerfilAnimal perfil,
+	public Animal(Long id, String nome, EspecieAnimal especie, Integer idade, String sexo, PerfilAnimal perfil,
 			Pessoa dono, List<Caracteristica> caracteristicas) {
 
 		super();
@@ -96,11 +98,11 @@ public class Animal {
 		this.nome = nome;
 	}
 
-	public String getEspecie() {
+	public EspecieAnimal getEspecie() {
 		return especie;
 	}
 
-	public void setEspecie(String especie) {
+	public void setEspecie(EspecieAnimal especie) {
 		this.especie = especie;
 	}
 
