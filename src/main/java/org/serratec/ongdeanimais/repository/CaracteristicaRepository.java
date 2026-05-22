@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CaracteristicaRepository extends JpaRepository<Caracteristica, Long> {
 
+	boolean existsByDescricao(String descricao);
 }
