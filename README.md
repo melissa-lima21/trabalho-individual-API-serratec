@@ -59,7 +59,7 @@ O projeto segue o padrão de camadas recomendado pelas boas práticas do Spring 
     {
       "interessadoId": 1,
       "animalId": 2,
-      "status": "AGUARDANDO"
+      "status": "PENDENTE"
     }
     ```
 
