@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -40,7 +39,6 @@ public class Endereco {
 	private String estado;
 
 	@OneToOne(mappedBy= "endereco")
-	@JoinColumn
 	private Pessoa pessoa;
 
 	public Endereco() {

@@ -27,41 +27,39 @@ import jakarta.validation.constraints.Size;
 @Entity
 @Table(name = "animal")
 public class Animal {
-	
+
 	@Id
-	@GeneratedValue(strategy =  GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@NotBlank(message = "O nome é obrigatório.")
 	@Size(max = 20)
 	@Column(nullable = false, length = 20)
 	private String nome;
-	
+
 	@NotNull(message = "A espécie é obrigatória.")
 	@Enumerated(EnumType.STRING)
 	private EspecieAnimal especie;
-	
+
 	@NotBlank(message = "Digite [M] para 'macho' ou [F] para 'fêmea'.")
 	@Size(max = 1)
 	@Column(length = 1)
 	private String sexo;
-	
+
 	@NotNull(message = "O perfil do animal é obrigatório.")
 	@Enumerated(EnumType.STRING)
 	private PerfilAnimal perfil;
-	
+
 	@PositiveOrZero(message = "A idade do animal não pode ser um número negativo.")
 	private Integer idade;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_pessoa")
 	@JsonBackReference
 	private Pessoa dono;
-	
+
 	@ManyToMany
-	@JoinTable(name = "caracteristica_animal",
-	joinColumns = @JoinColumn(name = "id_animal"),
-	inverseJoinColumns = @JoinColumn(name = "id_caracteristica"))
+	@JoinTable(name = "caracteristica_animal", joinColumns = @JoinColumn(name = "id_animal"), inverseJoinColumns = @JoinColumn(name = "id_caracteristica"))
 	private List<Caracteristica> caracteristicas;
 
 	public Animal() {
@@ -121,14 +119,14 @@ public class Animal {
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
-	
+
 	public PerfilAnimal getPerfil() {
 		return perfil;
 	}
-	
+
 	public void setPerfil(PerfilAnimal perfil) {
 		this.perfil = perfil;
-		
+
 	}
 
 	public Pessoa getDono() {
@@ -146,7 +144,5 @@ public class Animal {
 	public void setCaracteristicas(List<Caracteristica> caracteristicas) {
 		this.caracteristicas = caracteristicas;
 	}
-	
-	
 
 }
